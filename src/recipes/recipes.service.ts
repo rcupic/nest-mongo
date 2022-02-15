@@ -36,16 +36,17 @@ export class RecipesService {
   ): Promise<RecipeDocument[]> {
     try {
       const where = queryParams.ingredientId
-        ? {}
-        : {
+        ? {
             ingredients: { $in: queryParams.ingredientId },
-          };
+          }
+        : {};
 
       const { page, limit } = queryParams;
 
       const data = await this.recipeModel.paginate(where, {
         limit: limit || 25,
         page: page || 1,
+        populate: 'ingredients',
       });
 
       return data.docs;
