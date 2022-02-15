@@ -13,10 +13,11 @@ export class IngredientsService {
   public async findAll(): Promise<IngredientDocument[]> {
     try {
       const data = await this.ingredientModel.find();
-      console.log(data);
+
       return data;
     } catch (error) {
       console.log(error);
+      return [];
     }
   }
 }

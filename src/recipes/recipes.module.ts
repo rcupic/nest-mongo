@@ -3,14 +3,10 @@ import { RecipesService } from './recipes.service';
 import { RecipesController } from './recipes.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Recipe, RecipeSchema } from '../schemas/recipe.schema';
-import { Ingredient, IngredientSchema } from '../schemas/ingredient.schema';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([
-      { name: Recipe.name, schema: RecipeSchema },
-      { name: Ingredient.name, schema: IngredientSchema },
-    ]),
+    MongooseModule.forFeature([{ name: Recipe.name, schema: RecipeSchema }]),
   ],
   controllers: [RecipesController],
   providers: [RecipesService],
