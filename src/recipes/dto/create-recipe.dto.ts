@@ -1,12 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsString } from 'class-validator';
+import { IsArray, IsString, MinLength } from 'class-validator';
 
 export class CreateRecipeDto {
   @ApiProperty()
+  @MinLength(1)
   @IsString()
   name: string;
 
   @ApiProperty()
+  @MinLength(1)
   @IsString()
   description: string;
 

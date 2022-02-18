@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform, Type } from 'class-transformer';
-import { IsNumber, IsOptional } from 'class-validator';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class QueryParamsRecipeDto {
   @ApiProperty()
@@ -19,4 +19,8 @@ export class QueryParamsRecipeDto {
   @ApiProperty()
   @IsOptional()
   ingredientId?: string[];
+
+  @IsString()
+  @IsOptional()
+  nameWordStartWith?: string;
 }

@@ -5,15 +5,25 @@ import * as mongoose from 'mongoose';
 
 export type RecipeDocument = Recipe & Document;
 
-@Schema()
+@Schema({ autoIndex: false })
 export class Recipe {
-  @Prop()
+  @Prop({
+    required: true,
+    minlength: 2,
+    index: true,
+  })
   name: string;
 
-  @Prop()
+  @Prop({
+    required: true,
+    minlength: 2,
+  })
   description: string;
 
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ingredient' }] })
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ingredient' }],
+    index: true,
+  })
   ingredients: Ingredient[];
 }
 

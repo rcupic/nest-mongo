@@ -3,9 +3,12 @@ import { Document } from 'mongoose';
 
 export type IngredientDocument = Ingredient & Document;
 
-@Schema()
+@Schema({ autoIndex: false })
 export class Ingredient {
-  @Prop()
+  @Prop({
+    required: true,
+    minlength: 2,
+  })
   name: string;
 }
 
