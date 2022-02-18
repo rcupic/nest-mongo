@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { PaginateModel } from 'mongoose';
+import { Model } from 'mongoose';
 import { Ingredient } from 'src/schemas/ingredient.schema';
 import { Recipe, RecipeDocument } from '../schemas/recipe.schema';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
@@ -17,7 +17,7 @@ import { UpdateRecipeDto } from './dto/update-recipe.dto';
 export class RecipesService {
   constructor(
     @InjectModel(Recipe.name)
-    private recipeModel: PaginateModel<RecipeDocument>,
+    private recipeModel: Model<RecipeDocument>,
   ) {}
 
   public async create(
@@ -64,18 +64,21 @@ export class RecipesService {
         };
       }
 
-      const { page, limit } = queryParams;
+      const page = queryParams.page || 1;
+      const limit = queryParams.limit || 5;
 
-      const data = await this.recipeModel.paginate(where, {
-        limit: limit || 5,
-        page: page || 1,
-        populate: 'ingredients',
-      });
+      const data = await this.recipeModel
+        .find(where, '_id name description ingredients')
+        .limit(limit)
+        .skip((page - 1) * limit)
+        .populate('ingredients', '_id name');
+
+      const count = await this.recipeModel.countDocuments(where);
 
       return {
-        pages: data.totalPages,
-        count: data.totalDocs,
-        rows: data.docs.map(this.mapDocToDto),
+        pages: Math.ceil(count / limit),
+        count,
+        rows: data.map(this.mapDocToDto),
       };
     } catch (error) {
       console.log(error);

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { PaginateModel } from 'mongoose';
+import { Model } from 'mongoose';
 import { RecipeDocument } from 'src/schemas/recipe.schema';
 import { IngredientDocument, Ingredient } from '../schemas/ingredient.schema';
 import { ReadIngredientDto } from './dto/read-ingredient.dto';
@@ -9,7 +9,7 @@ import { ReadIngredientDto } from './dto/read-ingredient.dto';
 export class IngredientsService {
   constructor(
     @InjectModel(Ingredient.name)
-    private ingredientModel: PaginateModel<IngredientDocument>,
+    private ingredientModel: Model<IngredientDocument>,
   ) {}
 
   public async findAll(): Promise<ReadIngredientDto[]> {
