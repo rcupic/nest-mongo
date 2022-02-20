@@ -3,7 +3,7 @@ import { Document } from 'mongoose';
 
 export type IngredientDocument = Ingredient & Document;
 
-@Schema({ autoIndex: false })
+@Schema()
 export class Ingredient {
   @Prop({
     required: true,

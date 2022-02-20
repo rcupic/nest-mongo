@@ -5,7 +5,7 @@ import * as mongoose from 'mongoose';
 
 export type RecipeDocument = Recipe & Document;
 
-@Schema({ autoIndex: false })
+@Schema()
 export class Recipe {
   @Prop({
     required: true,

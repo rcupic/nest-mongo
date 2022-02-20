@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+
 import { Model } from 'mongoose';
+import { config } from '../config/config';
 import { IngredientDocument, Ingredient } from '../schemas/ingredient.schema';
 
 @Injectable()
@@ -9,7 +11,7 @@ export class IngredientsSeedService {
     @InjectModel(Ingredient.name)
     private ingredientModel: Model<IngredientDocument>,
   ) {
-    if (process.env.SEED_INGREDIENTS === 'true') {
+    if (config.SEED_INGREDEINTS) {
       this.seed();
     }
   }
