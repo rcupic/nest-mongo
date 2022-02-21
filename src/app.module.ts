@@ -8,6 +8,7 @@ import { config } from './config/config';
   imports: [
     MongooseModule.forRoot(config.MONGO_URL, {
       autoIndex: config.NODE_ENV === 'dev',
+      autoCreate: config.NODE_ENV === 'dev',
     }),
     RecipesModule,
     IngredientsModule,

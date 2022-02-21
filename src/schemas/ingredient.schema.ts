@@ -7,6 +7,7 @@ export type IngredientDocument = Ingredient & Document;
 export class Ingredient {
   @Prop({
     required: true,
+    unique: true,
     minlength: 2,
   })
   name: string;
