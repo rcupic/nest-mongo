@@ -6,10 +6,15 @@ import { config } from './config/config';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(config.MONGO_URL, {
-      autoIndex: config.NODE_ENV === 'dev',
-      autoCreate: config.NODE_ENV === 'dev',
-    }),
+    MongooseModule.forRoot(
+      config.MONGO_URL,
+      config.NODE_ENV
+        ? {
+            autoIndex: true,
+            autoCreate: true,
+          }
+        : { autoIndex: false, autoCreate: false },
+    ),
     RecipesModule,
     IngredientsModule,
   ],
